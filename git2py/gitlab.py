@@ -29,8 +29,8 @@ from dol import KvReader
 from py2store.utils.uri_utils import mk_str_making_func
 
 url_templates = dict(
-    project_names="projects/",
-    branche_names="projects/{project_id}/repository/branches",
+    projects="projects/",
+    branches="projects/{project_id}/repository/branches",
     branch="projects/{project_id}/repository/branches/{branch_name}",
     commit_by_sha="projects/{project_id}/repository/commits/{commit_sha}",
     commit_message_by_sha="projects/{project_id}/repository/commits/{commit_sha}",
