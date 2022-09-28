@@ -1,2 +1,2 @@
-from git2py import gitlab
+from git2py import gitlab_utils
 import hubcap as github
