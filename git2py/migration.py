@@ -149,39 +149,3 @@ class Migration:
                 mirror_repo(gitlab_project, github_repo)
 
     __call__ = migrate
-
-
-if __name__ == '__main__':    
-
-    name_map = {
-        'cavart/qc': 'qc-cavart',
-        'everyone/dolu': 'dolu-everyone',
-        'dkim/new_featurizer': 'new_featurizer-dkim',
-        'owenlloyd/ocore': 'ocore-owenlloyd',
-        'dkim/ocore': 'ocore-dkim',
-        'owenlloyd/omodel': 'omodel-owenlloyd',
-        'dkim/omodel': 'omodel-dkim',
-        'dkim/omodel_runners': 'omodel_runners-dkim',
-        'dkim/otosentio_utils': 'otosentio_utils-dkim',
-        'vmacari/sentio': 'sentio-vmacari',
-        'Raka.Singh/sentio': 'sentio-Raka.Singh',
-        'bernal/sentio': 'sentio-bernal',
-        'sherzog/stroll': 'stroll-sherzog',
-    }
-
-    projects_to_ignore = [
-        'zfeng2/raspbian_sentio_images',
-        'isaac_rhett/c_can_decoder'
-    ]
-
-    migration = Migration(
-        gitlab_base_url='https://git.otosense.ai/',
-        gitlab_token='-xW-G5-2uTM2d7qZxnJ2',
-        github_token='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',
-        github_org_name='otosense',
-        node_gitlab_2_github_path='/Users/vferon/otosense/migrate_from_gitlab_to_github/node-gitlab-2-github',
-        name_map=name_map,
-        projects_to_ignore=projects_to_ignore
-    )
-
-    migration(migrate_wikis=True)
