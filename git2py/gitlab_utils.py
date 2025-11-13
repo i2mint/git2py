@@ -84,7 +84,7 @@ class GitlabProjectReader(KvReader):
 
 
 # https://docs.gitlab.com/ce/api/README.html
-class GitLabAccessor(object):
+class GitLabAccessor:
     api_url_format = "{base_url}/api/v4/"
 
     def __init__(
@@ -143,7 +143,7 @@ class GitLabAccessor(object):
             self._set_project_id()
 
     def _set_project_id(self):
-        url = "{}/projects/".format(self.git_api_url)
+        url = f"{self.git_api_url}/projects/"
         params = {"search": self.project_name}
         response = requests.get(url, params=params, headers=self._headers)
 
@@ -154,13 +154,13 @@ class GitLabAccessor(object):
 
             if len(projects) == 0:
                 raise Exception(
-                    "No Projects with name {} found.".format(self.project_name)
+                    f"No Projects with name {self.project_name} found."
                 )
 
             self.project_id = projects[0]["id"]
 
     def get_project_names(self):
-        url = "{}projects/".format(self.git_api_url)
+        url = f"{self.git_api_url}projects/"
         return self._get_json_from_url(
             url, output_trans=lambda jdict: [x["name"] for x in jdict]
         )
