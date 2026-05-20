@@ -1,0 +1,4 @@
+git2py
+======
+.. automodule:: git2py
+   :members:

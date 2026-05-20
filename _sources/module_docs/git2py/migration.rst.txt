@@ -1,0 +1,4 @@
+git2py.migration
+================
+.. automodule:: git2py.migration
+   :members:
