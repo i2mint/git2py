@@ -1,8 +1,9 @@
+"""Migrate git repositories between GitHub and GitLab."""
+
 from contextlib import contextmanager
 import os
 import re
 import subprocess
-from tkinter import N
 import tempfile
 import shutil
 from gitlab import Gitlab

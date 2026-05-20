@@ -99,7 +99,7 @@ format = []
 
 [tool.wads.ci.env]
 required_envvars = []
-test_envvars = []
+test_envvars = ["GITHUB_TOKEN"]
 extra_envvars = []
 
 [tool.wads.ci.env.defaults]
