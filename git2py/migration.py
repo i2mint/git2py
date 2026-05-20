@@ -9,9 +9,9 @@ import shutil
 from gitlab import Gitlab
 from github import Github, GithubException
 
-GITHUB_BASE_URL = 'https://github.com'
-GITHUB_API_BASE_URL = 'https://api.github.com'
-DFLT_LOCAL_REPO_DIR = 'repo'
+GITHUB_BASE_URL = "https://github.com"
+GITHUB_API_BASE_URL = "https://api.github.com"
+DFLT_LOCAL_REPO_DIR = "repo"
 
 
 def run_cmd_line(exe, *args):
@@ -19,21 +19,21 @@ def run_cmd_line(exe, *args):
 
 
 def git(*args):
-    return run_cmd_line('git', *args)
+    return run_cmd_line("git", *args)
 
 
 def npm(*args):
-    return run_cmd_line('npm', *args)
+    return run_cmd_line("npm", *args)
 
 
 @contextmanager
 def cd(path):
-   old_path = os.getcwd()
-   os.chdir(path)
-   try:
-       yield
-   finally:
-       os.chdir(old_path)
+    old_path = os.getcwd()
+    os.chdir(path)
+    try:
+        yield
+    finally:
+        os.chdir(old_path)
 
 
 def work_under_tmp_dir(func):
@@ -42,6 +42,7 @@ def work_under_tmp_dir(func):
         with cd(tmp_dir):
             func(*args, **kwargs)
         shutil.rmtree(tmp_dir)
+
     return wrapper
 
 
@@ -49,37 +50,41 @@ def work_under_tmp_dir(func):
 def mirror_repo(gitlab_project, github_repo):
     gitlab_url = gitlab_project.http_url_to_repo
     github_url = github_repo.clone_url
-    print(f'Mirroring repo from {gitlab_url} to {github_url} ...')
-    git('clone', '--mirror', gitlab_url, '.')
-    git('push', '--no-verify', '--mirror', github_url)
-    print(f'Repo {github_url} has been mirrored successfully!')
+    print(f"Mirroring repo from {gitlab_url} to {github_url} ...")
+    git("clone", "--mirror", gitlab_url, ".")
+    git("push", "--no-verify", "--mirror", github_url)
+    print(f"Repo {github_url} has been mirrored successfully!")
 
 
 def migrate_project(gitlab_project, github_repo_name, migrate_wikis):
-    print(f'Migrating project data from "{gitlab_project.path_with_namespace}" to "{github_repo_name}" ...')
+    print(
+        f'Migrating project data from "{gitlab_project.path_with_namespace}" to "{github_repo_name}" ...'
+    )
     if migrate_wikis:
         create_issues_from_wikis(gitlab_project)
-    update_file('settings.ts', r'projectId: \d*', f'projectId: {gitlab_project.id}')
-    update_file('settings.ts', r"repo: '.*'", f"repo: '{github_repo_name}'")
-    npm('run', 'start')
-    print(f'Project data have been migrated to {github_repo_name} successfully!')
+    update_file("settings.ts", r"projectId: \d*", f"projectId: {gitlab_project.id}")
+    update_file("settings.ts", r"repo: '.*'", f"repo: '{github_repo_name}'")
+    npm("run", "start")
+    print(f"Project data have been migrated to {github_repo_name} successfully!")
 
 
 def create_issues_from_wikis(gitlab_project):
     wikis = gitlab_project.wikis.list(get_all=True)
     issues = gitlab_project.issues.list(get_all=True)
     for wiki in reversed(wikis):
-        issue_title = f'(migrated wiki) {wiki.slug}'
+        issue_title = f"(migrated wiki) {wiki.slug}"
         if next((i for i in issues if i.title == issue_title), None) is None:
             wiki_content = gitlab_project.wikis.get(wiki.slug).content
-            gitlab_project.issues.create(dict(
-                title=issue_title,
-                description=wiki_content,
-            ))
+            gitlab_project.issues.create(
+                dict(
+                    title=issue_title,
+                    description=wiki_content,
+                )
+            )
 
 
 def update_file(path, pattern, replace):
-    with open(path, 'r+') as file:
+    with open(path, "r+") as file:
         content = file.read()
         content_new = re.sub(pattern, replace, content, flags=re.M)
         # if content_new == content:
@@ -98,7 +103,7 @@ class Migration:
         github_org_name,
         node_gitlab_2_github_path,
         name_map=None,
-        projects_to_ignore=None
+        projects_to_ignore=None,
     ):
         self._gitlab = Gitlab(url=gitlab_base_url, private_token=gitlab_token)
         github = Github(github_token)
@@ -107,27 +112,45 @@ class Migration:
         self._name_map = name_map or {}
         self._projects_to_ignore = projects_to_ignore or []
 
-    def migrate(self, *, migrate_repositories=True, migrate_project_data=True, migrate_wikis=False):
+    def migrate(
+        self,
+        *,
+        migrate_repositories=True,
+        migrate_project_data=True,
+        migrate_wikis=False,
+    ):
         gitlab_projects = self._gitlab.projects.list(
             get_all=True,
             # page=10,
-            order_by='name',
-            sort='asc'
+            order_by="name",
+            sort="asc",
         )
-        print(f'Starting migration of {len(gitlab_projects)} Gitlab projects to Github')
+        print(f"Starting migration of {len(gitlab_projects)} Gitlab projects to Github")
         with cd(self._node_gitlab_2_github_path):
             for gitlab_project in gitlab_projects:
                 try:
-                    self._migrate_project(gitlab_project, migrate_repositories, migrate_project_data, migrate_wikis)
+                    self._migrate_project(
+                        gitlab_project,
+                        migrate_repositories,
+                        migrate_project_data,
+                        migrate_wikis,
+                    )
                 except Exception as e:
-                    print(f'Failed migrating {gitlab_project.path_with_namespace}. Error message: {e}')
+                    print(
+                        f"Failed migrating {gitlab_project.path_with_namespace}. Error message: {e}"
+                    )
 
-    def _migrate_project(self, gitlab_project, migrate_repositories, migrate_project_data, migrate_wikis):
+    def _migrate_project(
+        self, gitlab_project, migrate_repositories, migrate_project_data, migrate_wikis
+    ):
         path_with_namespace = gitlab_project.path_with_namespace
         if path_with_namespace in self._projects_to_ignore:
-            print(f'Skipping {path_with_namespace}')
+            print(f"Skipping {path_with_namespace}")
         else:
-            github_repo_name = self._name_map.get(gitlab_project.path_with_namespace) or gitlab_project.path
+            github_repo_name = (
+                self._name_map.get(gitlab_project.path_with_namespace)
+                or gitlab_project.path
+            )
             if migrate_repositories:
                 self._migrate_repo(gitlab_project, github_repo_name)
             if migrate_project_data:
@@ -137,11 +160,11 @@ class Migration:
         try:
             github_repo = self._github_org.get_repo(github_repo_name)
         except GithubException as e:
-            print(f'Creating repo {github_repo_name} on Github ...')
+            print(f"Creating repo {github_repo_name} on Github ...")
             github_repo = self._github_org.create_repo(
                 name=github_repo_name,
                 description=gitlab_project.description,
-                private=True
+                private=True,
             )
         try:
             github_repo.get_contents("/")

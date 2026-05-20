@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "git2py"
-version = "0.0.4"
+version = "0.0.5"
 description = "Mapping git operation to a dict-like Data Object Layer"
 readme = "README.md"
 requires-python = ">=3.10"

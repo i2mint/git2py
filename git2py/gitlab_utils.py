@@ -16,6 +16,7 @@ print(
 ```
 
 """
+
 import requests
 import os
 from warnings import warn
@@ -51,9 +52,7 @@ def mk_url_factory(base_url):
         pass
 
     for name, format in url_templates.items():
-        func = mk_str_making_func(
-            base_url + format, module=__name__, name=name
-        )
+        func = mk_str_making_func(base_url + format, module=__name__, name=name)
         setattr(url_for, name, staticmethod(func))
 
     return url_for()
@@ -88,10 +87,10 @@ class GitLabAccessor:
     api_url_format = "{base_url}/api/v4/"
 
     def __init__(
-            self,
-            base_url="http://git.otosense.ai/",
-            project_name=None,
-            private_token=dflt_private_token,
+        self,
+        base_url="http://git.otosense.ai/",
+        project_name=None,
+        private_token=dflt_private_token,
     ):
 
         self.git_api_url = self.api_url_format.format(base_url=base_url)
@@ -106,7 +105,7 @@ class GitLabAccessor:
         self.request = get_request_constructor()
 
     def _get_stuff_from_url(
-            self, url, output_trans=None, response_attr="json", params=None
+        self, url, output_trans=None, response_attr="json", params=None
     ):
         response = requests.get(url, headers=self._headers, params=params)
         if response_attr == "json":
@@ -153,9 +152,7 @@ class GitLabAccessor:
             projects = response.json()
 
             if len(projects) == 0:
-                raise Exception(
-                    f"No Projects with name {self.project_name} found."
-                )
+                raise Exception(f"No Projects with name {self.project_name} found.")
 
             self.project_id = projects[0]["id"]
 
@@ -261,9 +258,7 @@ class GitLabAccessor:
 
     def get_project_files(self):
 
-        url = "{}projects/{}/repository/tree".format(
-            self.git_api_url, self.project_id
-        )
+        url = "{}projects/{}/repository/tree".format(self.git_api_url, self.project_id)
         return self._get_json_from_url(url)
         # response = requests.get(url, headers=self._headers)
         #
@@ -273,9 +268,7 @@ class GitLabAccessor:
 
     def get_tags_list(self):
 
-        url = "{}projects/{}/repository/tags".format(
-            self.git_api_url, self.project_id
-        )
+        url = "{}projects/{}/repository/tags".format(self.git_api_url, self.project_id)
         return self._get_json_from_url(url)
         # response = requests.get(url, headers=self._headers)
         #
@@ -286,4 +279,3 @@ class GitLabAccessor:
 
 def get_request_constructor():
     pass
-
