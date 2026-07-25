@@ -144,7 +144,7 @@ exclude_paths = [
 test_on_windows = true
 
 [tool.wads.ci.metrics]
-enabled = true
+enabled = false
 config_path = ".github/umpyre-config.yml"
 storage_branch = "code-metrics"
 python_version = "3.10"
