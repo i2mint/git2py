@@ -1,4 +1,0 @@
-git2py.gitlab_utils
-===================
-.. automodule:: git2py.gitlab_utils
-   :members:

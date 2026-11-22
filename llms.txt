@@ -1,0 +1,21 @@
+# git2py
+
+> Mapping git operation to a dict-like Data Object Layer
+
+
+## Pages
+
+- [git2py](index.html.md): Some git (gitlab and github) tools.
+- [API reference](api.html.md): | &#96;git2py&#96;   | Git tools.   |
+- [git2py](_autosummary/git2py.html.md): The intent of this package was to provide a simple, high-level interface to git.
+- [git2py.gitlab_utils](_autosummary/git2py.gitlab_utils.html.md): Stores to talk to gitlab, using requests.
+- [git2py.migration](_autosummary/git2py.migration.html.md): Migrate git repositories between GitHub and GitLab.
+- [About this build](about-this-build.html.md): This documentation was built on &#42;&#42;2026-11-22 17:01 UTC&#42;&#42; from commit &lt;a href="https://github.com/i2m...
+
+## Optional
+
+- [git2py.md](git2py.md): Complete documentation in a single file.
+
+## Build
+
+- [build_info.json](build_info.json): build provenance (commit, version, tool versions, whether the docs match the package)

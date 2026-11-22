@@ -1,0 +1,20 @@
+git2py.gitlab\_utils
+====================
+
+.. automodule:: git2py.gitlab_utils
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      get_request_constructor
+      mk_url_factory
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      GitLabAccessor
+      GitlabProjectReader
+   

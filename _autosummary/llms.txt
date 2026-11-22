@@ -1,0 +1,14 @@
+# git2py
+
+> Mapping git operation to a dict-like Data Object Layer
+
+
+## Pages in this subsection
+
+- [git2py](git2py.html.md): The intent of this package was to provide a simple, high-level interface to git.
+- [git2py.gitlab_utils](git2py.gitlab_utils.html.md): Stores to talk to gitlab, using requests.
+- [git2py.migration](git2py.migration.html.md): Migrate git repositories between GitHub and GitLab.
+
+## Optional
+
+- [Top-level llms.txt](../llms.txt): Complete documentation index.

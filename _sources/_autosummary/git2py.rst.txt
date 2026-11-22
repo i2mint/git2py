@@ -1,0 +1,14 @@
+﻿git2py
+======
+
+.. automodule:: git2py
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   gitlab_utils
+   migration

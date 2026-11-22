@@ -1,0 +1,26 @@
+git2py.migration
+================
+
+.. automodule:: git2py.migration
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      cd
+      create_issues_from_wikis
+      git
+      migrate_project
+      mirror_repo
+      npm
+      run_cmd_line
+      update_file
+      work_under_tmp_dir
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      Migration
+   

@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "built_at": "2026-11-22T17:01:34Z",
+  "package": {
+    "name": "git2py",
+    "version": "0.0.8",
+    "display_name": "git2py",
+    "source": "pyproject.toml"
+  },
+  "git": {
+    "available": true,
+    "commit": "6521c0bae2e0ede31e9edda8df7f9f8a9b3169f6",
+    "short_commit": "6521c0b",
+    "branch": "master",
+    "tags": [],
+    "dirty": false,
+    "remote_url": "https://github.com/i2mint/git2py",
+    "commit_url": "https://github.com/i2mint/git2py/commit/6521c0bae2e0ede31e9edda8df7f9f8a9b3169f6",
+    "error": null
+  },
+  "ci": {
+    "provider": "github",
+    "repository": "i2mint/git2py",
+    "sha": "6521c0bae2e0ede31e9edda8df7f9f8a9b3169f6",
+    "sha_in_history": true,
+    "ref": "refs/heads/master",
+    "ref_name": "master",
+    "run_id": "45046967533",
+    "run_url": "https://github.com/i2mint/git2py/actions/runs/45046967533",
+    "server_url": "https://github.com"
+  },
+  "tools": {
+    "epythet": "0.2.23",
+    "sphinx": "9.1.1",
+    "docutils": "0.22.4",
+    "python": "3.12.16"
+  },
+  "config": {
+    "theme": "auto",
+    "html_theme": "pydata_sphinx_theme",
+    "accent": "#93332f",
+    "mode": "auto",
+    "api_generator": "autosummary",
+    "ignore": [
+      "tests/",
+      "scrap/",
+      "examples/"
+    ],
+    "agent_outputs": true,
+    "aggregates": [
+      "md"
+    ],
+    "ai_artifacts": true,
+    "provenance": true,
+    "docs_dir": "docsrc"
+  },
+  "site": {
+    "modules_documented": 3,
+    "objects_documented": 1
+  },
+  "pypi": {
+    "checked": true,
+    "latest": "0.0.8",
+    "relation": "same",
+    "error": null
+  },
+  "reproduce": "git clone https://github.com/i2mint/git2py && cd git2py\ngit checkout 6521c0bae2e0ede31e9edda8df7f9f8a9b3169f6\npip install \"epythet==0.2.23\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "warnings": [],
+  "alignment": {
+    "aligned": true,
+    "notes": []
+  }
+}
